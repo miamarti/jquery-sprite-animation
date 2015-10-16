@@ -1,0 +1,28 @@
+{
+  "name": "jquery-sprite-animation",
+  "version": "1.0.0",
+  "main": "dist/jquery-sprite.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "build",
+    "speed",
+    "test",
+    "*.md"
+  ],
+  "keywords": [
+    "sprite",
+    "jquery",
+    "motio",
+    "html5",
+    "darsa"
+  ],
+  "authors": [
+    { "name": "Miller Augusto S. Martins", "email": "miller@ciandt.com", "homepage": "http://br.linkedin.com/pub/miller-augusto/2a/38b/832/" },
+    { "name": "Darsa", "homepage": "http://darsa.in/motio/" }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miamarti/jquery-sprite-animation.git"
+  }
+}
