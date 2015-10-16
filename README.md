@@ -20,7 +20,7 @@ $ bower install jquery-sprite-animation --save
 
 ## HTML Page include
 ```
-<script src="bower_components/jquery-sprite-animation/dist/jquery-sprite.js"></script>
+<script src="bower_components/jquery-sprite-animation/dist/jquery-sprite.min.js"></script>
 ```
 
 ## Creating an animation
