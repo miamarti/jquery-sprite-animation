@@ -10,7 +10,6 @@ jQuery Sprite Animation
   <img src="https://img.shields.io/badge/jquery--sprite--animation-release-green.svg">
   <img src="https://img.shields.io/badge/version-1.0.0-blue.svg">
   <img src="https://img.shields.io/bower/v/bootstrap.svg">
-  <img src="https://img.shields.io/github/license/mashape/apistatus.svg">
 </p>
 
 ## Bower install de dependency
@@ -53,12 +52,27 @@ $(document).ready(function() {
         }
     };
     $('.slide').sprite(config);
-
-    $('.btn-play-pause').click(function(){
-        $('.slide').toggle();
-    });
-
 });
+```
+
+## Methods
+
+### #play
+Starts playing continuous animation that doesn't stop until interrupted by other methods.
+```
+$('.slide').play();
+```
+
+### #Pause
+Pauses the current animation.
+```
+$('.slide').pause();
+```
+
+### #Toggle
+Pauses when playing, resumes when paused.
+```
+$('.slide').toggle();
 ```
 
 ## Based on Darsa Motion
