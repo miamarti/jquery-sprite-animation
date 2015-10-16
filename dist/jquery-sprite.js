@@ -534,7 +534,19 @@
  * http://opensource.org/licenses/MIT
  */
 (function($) {
-    $.fn.sprite = function(settings) {
+    $.fn.sprite = function(options) {
+
+        var defaults = {
+            slide: 1
+        };
+        var settings = $.extend({}, defaults, options);
+        if(!this[0].dataset.hasOwnProperty('slide')){
+            this[0].dataset.slide = 1;
+        }
+        if(!this[0].dataset.hasOwnProperty('cycle')){
+            this[0].dataset.cycle = 0;
+        }
+
         var $this = this;
         var $core = {
             elmt: $this[0],
