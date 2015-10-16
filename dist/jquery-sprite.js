@@ -592,6 +592,9 @@
                     innerSheet += '    position: fixed;';
                     innerSheet += '    left: 0px;';
                     innerSheet += '    top: 0px;';
+                    innerSheet += '    opacity: 0;';
+                    innerSheet += '    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 0);';
+                    innerSheet += '    filter: alpha(opacity = 0);';
                     innerSheet += '}';
 
                 for(var key in $core.config.cycles){
