@@ -1,6 +1,6 @@
 {
   "name": "jquery-sprite-animation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/jquery-sprite.js",
   "license": "MIT",
   "ignore": [
