@@ -528,7 +528,7 @@
 
 /*!
  * jQuery-Sprite - 16th Out 2015
- * https://github.com/miamarti
+ * https://github.com/miamarti/jquery-sprite-animation
  *
  * Licensed under the MIT license.
  * http://opensource.org/licenses/MIT
