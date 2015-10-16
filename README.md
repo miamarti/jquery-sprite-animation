@@ -1,7 +1,3 @@
-# jquery-sprite-animation
-jQuery Sprite Animation
-
-
 jQuery Sprite Animation
 ===========
 [jquery-sprite-animation] Sprite Animation on jQuery
