@@ -583,6 +583,7 @@
                 var cycle = 0;
                 var finalUrlOfSlide = '';
                 var sheet = document.createElement('style');
+                sheet.dataset.ref = 'jquerySprite';
                 var context = '[data-slide="' + $core.config.slide + '"]';
 
                 var innerSheet = '';
@@ -620,6 +621,11 @@
             },
 
             createObject: function(){
+                $core.reset();
+
+                if($core.sprite && $core.sprite.destroy){
+                    $core.sprite.destroy();
+                }
                 $core.sprite = new Motio($core.elmt, $core.config);
 
                 $core.sprite.on('frame', function () {
@@ -664,6 +670,17 @@
             pause: function(){
                 $core.reset();
                 $core.sprite.pause();
+            },
+
+            destroy: function(){
+                document.querySelector('[data-ref="jquerySprite"]').remove();
+                $core.elmt.dataset.cycle = 0;
+                $core.reset();
+                $core.sprite.destroy();
+                delete $this.__proto__['play'];
+                delete $this.__proto__['pause'];
+                delete $this.__proto__['toggle'];
+                delete $this.__proto__['destroy'];
             }
         };
 
@@ -672,6 +689,7 @@
             this.__proto__['play'] = $core.play.bind($core);
             this.__proto__['pause'] = $core.pause.bind($core);
             this.__proto__['toggle'] = $core.toggle.bind($core);
+            this.__proto__['destroy'] = $core.destroy.bind($core);
         }
 
         return $this;
