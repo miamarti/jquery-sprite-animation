@@ -657,8 +657,8 @@
             },
 
             reset: function(){
+                $this.removeClass('is-end-cicle');
                 if($core.isEnd){
-                    $this.removeClass('is-end-cicle');
                     $core.elmt.dataset.cycle = '0';
                     $core.isEnd = false;
                 }
