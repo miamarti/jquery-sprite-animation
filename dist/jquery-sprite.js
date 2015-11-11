@@ -553,6 +553,7 @@
             config: undefined,
             sprite: undefined,
             isEnd: false,
+            cycle: 0,
 
             main: function(config){
                 $core.setConfig(config);
@@ -580,7 +581,7 @@
             },
 
             createStyles: function(){
-                var cycle = 0;
+
                 var finalUrlOfSlide = '';
                 var sheet = document.createElement('style');
                 sheet.dataset.ref = 'jquerySprite';
@@ -599,21 +600,25 @@
                     innerSheet += '}';
 
                 for(var key in $core.config.cycles){
-                    innerSheet += context + '.slide-tmp div:nth-of-type(' + (cycle + 1) + '){';
+                    innerSheet += context + '.slide-tmp div:nth-of-type(' + ($core.cycle + 1) + '){';
                     innerSheet += '    background: url("' + $core.config.cycles[key].url + '") 0 0 no-repeat;';
                     innerSheet += '}';
 
-                    innerSheet += context + '[data-cycle="' + cycle + '"]{';
+                    innerSheet += context + '[data-cycle="' + $core.cycle + '"]{';
                     innerSheet += '    background: url("' + $core.config.cycles[key].url + '") 0 0 no-repeat;';
                     innerSheet += '}';
 
                     finalUrlOfSlide = $core.config.cycles[key].url;
-                    cycle++;
+                    $core.cycle++;
                 }
 
                 innerSheet += context + '{';
-                innerSheet += '    background: url("' + finalUrlOfSlide + '") 0 0 no-repeat;';
+                innerSheet += '    background: url("' + finalUrlOfSlide + '") no-repeat;';
                 innerSheet += '    background-position: 0 0;';
+                innerSheet += '}';
+
+                innerSheet += '.is-end-cicle {';
+                innerSheet += '    background-position: right 0 !important;';
                 innerSheet += '}';
 
                 sheet.innerHTML = innerSheet;
@@ -631,9 +636,10 @@
                 $core.sprite.on('frame', function () {
                     if(this.frame === 0){
                         $core.elmt.dataset.cycle = parseInt($core.elmt.dataset.cycle) + 1;
-                        if($core.elmt.dataset.cycle === '3'){
+                        if($core.elmt.dataset.cycle === $core.cycle.toString()){
                             this.to(1, true);
                             $core.isEnd = true;
+                            $this.addClass('is-end-cicle');
                         }
                     }
                     if($core.config.hasOwnProperty('onFrame')){
@@ -652,6 +658,7 @@
 
             reset: function(){
                 if($core.isEnd){
+                    $this.removeClass('is-end-cicle');
                     $core.elmt.dataset.cycle = '0';
                     $core.isEnd = false;
                 }
@@ -695,3 +702,4 @@
         return $this;
     };
 }(jQuery));
+
