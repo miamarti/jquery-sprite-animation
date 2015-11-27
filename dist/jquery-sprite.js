@@ -534,17 +534,55 @@
  * http://opensource.org/licenses/MIT
  */
 (function($) {
+    var $ds = function(T){
+        return {
+            set: function(name, value){
+                try{
+                    $(T)[0].dataset[name.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })] = value;
+                } catch(e){
+                    $(T).attr('data-' + name, value);
+                }
+            },
+            get: function(name){
+                var result;
+                try{
+                    result = $(T)[0].dataset[name.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })];
+                } catch(e){
+                    result = $(T).attr('data-' + name);
+                }
+                return result;
+            },
+            is: function(name, value){
+                var result;
+                try{
+                    result = ($(T)[0].dataset[name.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); })] === value);
+                } catch(e){
+                    result = ($(T).attr('data-' + name) === value);
+                }
+                return result;
+            },
+            hasOwnProperty: function(name){
+                var result = false;
+                try{
+                    result = $(T)[0].dataset.hasOwnProperty('name');
+                } catch(e){
+                    result = ($(T).attr('data-' + name) !== undefined && $(T).attr('data-' + name) !== '' && $(T).attr('data-' + name) !== null);
+                }
+                return result;
+            }
+        };
+    };
     $.fn.sprite = function(options) {
 
         var defaults = {
             slide: 1
         };
         var settings = $.extend({}, defaults, options);
-        if(!this[0].dataset.hasOwnProperty('slide')){
-            this[0].dataset.slide = 1;
+        if(!$ds(this).hasOwnProperty('slide')){
+            $ds(this).set('slide', 1);
         }
-        if(!this[0].dataset.hasOwnProperty('cycle')){
-            this[0].dataset.cycle = 0;
+        if(!$ds(this).hasOwnProperty('cycle')){
+            $ds(this).set('cycle', 0);
         }
 
         var $this = this;
@@ -573,7 +611,7 @@
             createTemps: function(){
                 var tempDiv = document.createElement("div");
                 tempDiv.setAttribute('class', 'slide-tmp');
-                tempDiv.dataset.slide = $core.config.slide;
+                tempDiv.setAttribute('data-slide', $core.config.slide);
                 for(var key in $core.config.cycles){
                     tempDiv.appendChild(document.createElement("div"));
                 }
@@ -584,7 +622,7 @@
 
                 var finalUrlOfSlide = '';
                 var sheet = document.createElement('style');
-                sheet.dataset.ref = 'jquerySprite';
+                sheet.setAttribute('data-ref', 'jquerySprite');
                 var context = '[data-slide="' + $core.config.slide + '"]';
 
                 var innerSheet = '';
@@ -635,8 +673,8 @@
 
                 $core.sprite.on('frame', function () {
                     if(this.frame === 0){
-                        $core.elmt.dataset.cycle = parseInt($core.elmt.dataset.cycle) + 1;
-                        if($core.elmt.dataset.cycle === $core.cycle.toString()){
+                        $ds($core.elmt).set('cycle', parseInt($ds($core.elmt).get('cycle')) + 1);
+                        if($ds($core.elmt).is('cycle', $core.cycle.toString())){
                             this.to(1, true);
                             $core.isEnd = true;
                             $this.addClass('is-end-cicle');
@@ -659,7 +697,7 @@
             reset: function(){
                 $this.removeClass('is-end-cicle');
                 if($core.isEnd){
-                    $core.elmt.dataset.cycle = '0';
+                    $ds($core.elmt).set('cycle', 0);
                     $core.isEnd = false;
                 }
             },
@@ -680,8 +718,8 @@
             },
 
             destroy: function(){
-                document.querySelector('[data-ref="jquerySprite"]').remove();
-                $core.elmt.dataset.cycle = 0;
+                $('[data-ref="jquerySprite"]').remove();
+                $ds($core.elmt).set('cycle', 0);
                 $core.reset();
                 $core.sprite.destroy();
                 delete $this.__proto__['play'];
