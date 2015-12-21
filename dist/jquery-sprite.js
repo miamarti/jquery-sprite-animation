@@ -699,13 +699,17 @@
           }
         });
 
-        if ($core.config.hasOwnProperty('onPlay')) {
-          $core.config.onPlay(this);
-        }
+        $core.sprite.on('play', function () {
+          if ($core.config.hasOwnProperty('onPlay')) {
+            $core.config.onPlay(this);
+          }
+        });
 
-        if ($core.config.hasOwnProperty('onPause')) {
-          $core.config.onPause(this);
-        }
+        $core.sprite.on('pause', function () {
+          if ($core.config.hasOwnProperty('onPause')) {
+            $core.config.onPause(this);
+          }
+        });
       },
 
       reset: function () {
